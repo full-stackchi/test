@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 import { CodeBlock } from "@/components/code-block"
 
 // Python test questions with correct answers marked
@@ -293,10 +293,8 @@ export default function TestPage() {
     const unansweredQuestions = questions.filter((q) => !answers[q.id])
 
     if (unansweredQuestions.length > 0) {
-      toast({
-        title: "Barcha savollarga javob bering",
+      toast.error("Barcha savollarga javob bering", {
         description: `${unansweredQuestions.length} ta savol javobsiz qoldi`,
-        variant: "destructive",
       })
       return
     }
@@ -336,10 +334,8 @@ export default function TestPage() {
       router.push("/results")
     } catch (error) {
       console.error(error)
-      toast({
-        title: "Xatolik",
+      toast.error("Xatolik", {
         description: "Natijalarni yuborishda xatolik yuz berdi. Iltimos, qayta urinib ko'ring.",
-        variant: "destructive",
       })
     } finally {
       setLoading(false)
@@ -370,7 +366,7 @@ export default function TestPage() {
         </CardHeader>
         <CardContent>
           {currentQ.code && (
-            <div className="mb-4">
+            <div className="mb-4 overflow-x-auto">
               <CodeBlock code={currentQ.code} />
             </div>
           )}
